@@ -105,19 +105,15 @@
         }
 
         function detailPage() {
-            let Btn = $('.card-body');            
+            let Btn = $('.card-body');    
 
             Btn.click(function () {                
                 let tmp = $(this).find('.card-title');
                 let name = tmp[0]['innerText'];
 
-                let formData = new FormData();
-                formData.append("name_give", name);
+                location.href = '/introDetail/' +  name;
 
-                fetch('/introDetail', { method: "POST", body: formData }).then((res) => res.json()).then((data) => {           
-                    location.replace('/introDetail');
-                });
-            })
+            });            
         }
 
     </script>

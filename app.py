@@ -5,6 +5,7 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://sparta:test@cluster0.sogtrtv.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
 
+app.secret_key = "ABCED"
 
 @app.route('/')
 def home():
@@ -36,7 +37,7 @@ def intro_post():
 @app.route("/intro", methods=["GET"])
 def intro_get():
 
-    all_members = list(db.introduce.find({},{'_id':False}))        
+    all_members = list(db.introduce.find({},{'_id':False}))    
 
     return jsonify({'result': all_members})
 
@@ -53,24 +54,13 @@ def introDelete():
 
     return jsonify({'msg':'삭제 완료!'})
 
-@app.route('/introDetail', methods=['GET', 'POST'])
-def introDetail():
 
-    if request.method == 'POST':
-        name = request.form['name_give']
+@app.route('/introDetail/<name>', methods=['GET', 'POST'])
+def introDetail(name):
 
-        user = db.introduce.find_one({'name': name})
+    user = db.introduce.find_one({'name': name})
 
-        return jsonify({
-                'picture': user['picture'],
-                'name': user['name'],
-                'intro': user['intro'],
-                'mbti': user['mbti'],
-                'blog': user['blog'],
-                'good': user['good']
-            })
-
-    return render_template('detail.html')
+    return render_template('detail.html', temp=user)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

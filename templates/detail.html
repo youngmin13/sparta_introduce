@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -40,39 +40,6 @@
         }
     </style>
     <script>
-        $(document).ready(function () {
-            listing();
-        });
-
-        function listing() {
-
-            fetch('/introDetail').then((res) => res.json()).then((data) => {
-
-                $('#cards-box').empty();
-
-                let picture = data['picture'];
-                let name = data['name'];
-                let intro = data['intro'];
-                let mbti = data['mbti'];
-                let blog = data['blog'];
-                let good = data['good'];                     
-
-                let temp_html = `<img class="myimg" src="${picture}" alt="..."
-                                    style="width: 500px">
-                                <div class="card mb-3" style="width: 600px ">
-                                    <div class="card-header bg-transparent ">${name}</div>
-                                    <div class="card-body">
-                                        <p class="card-text">${intro}</p>
-                                        <p class="card-text">${mbti}</p>
-                                        <p class="card-text">${blog}</p>
-                                        <p class="card-text">${good}</p>
-                                    </div>
-                                    <div class="card-footer bg-transparent">Footer</div>
-                                </div>`;
-                $('#cards-box').append(temp_html);
-
-            });
-        }
 
     </script>
 </head>
@@ -80,21 +47,34 @@
 <body>
     <div class="mytitle">
         <h1>반가워조</h1>
-    </div>
+    </div>        
     <div class="row justify-content-center myintro" id="cards-box">
-        <img class="myimg" src="https://cdn.pixabay.com/photo/2016/02/18/18/37/puppy-1207816_1280.jpg" alt="..."
+        {% if temp.picture %}
+            <img class="myimg" src="{{ temp.picture }}" alt="..."
             style="width: 500px">
-        <div class="card mb-3" style="width: 600px ">
-            <div class="card-header bg-transparent ">팀원이름</div>
+        {% endif %}
+        <div class="card mb-3" style="width: 600px ">        
+            {% if temp.name %}    
+                <div class="card-header bg-transparent ">{{ temp.name }}</div>
+            {% endif %}
             <div class="card-body">
-                <p class="card-text"></p>
-                <p class="card-text"></p>
-                <p class="card-text"></p>
-                <p class="card-text"></p>
+                {% if temp.intro %} 
+                    <p class="card-text">{{ temp.intro}}</p>
+                {% endif %}
+                {% if temp.mbti %} 
+                    <p class="card-text">{{ temp.mbti }}</p>
+                {% endif %}
+                {% if temp.blog %} 
+                    <p class="card-text">{{ temp.blog }}</p>
+                {% endif %}
+                {% if temp.good %} 
+                    <p class="card-text">{{ temp.good }}</p>
+                {% endif %}
             </div>
-            <div class="card-footer bg-transparent"></div>
+            <div class="card-footer bg-transparent"></div>            
         </div>
-    </div>
+    </div>    
 </body>
 
-</html>
+
+</html>}
