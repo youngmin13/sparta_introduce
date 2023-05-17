@@ -42,31 +42,55 @@
 
         function posting() {
 
-            let img = $('#img').val();
+            // let img = $('#img').val();
+            let image = document.querySelector("#image");
             let name = $('#name').val();
             let explanation = $('#explanation').val();
             let mbti = $('#mbti').val();
             let url = $('#url').val();
             let comment = $('#comment').val();
 
-            $.ajax({
-                type: 'POST',
-                url: '/intro',
-                data: {img_give: img, name_give: name, explanation_give: explanation, mbti_give: mbti, url_give: url, comment_give: comment},
-                success: function (response) {
-                    opener.parent.location="http://127.0.0.1:5000";
-                    window.close();   
-                }
+            let formData = new FormData();
+            formData.append("name_give", name);            
+            formData.append("explanation_give", explanation);
+            formData.append("mbti_give", mbti);
+            formData.append("url_give", url);
+            formData.append("comment_give", comment);
+            formData.append("img_give", image.files[0]);
+
+            fetch('/intro', { method: "POST", body: formData }).then((res) => res.json()).then((data) => {           
+                opener.parent.location="http://127.0.0.1:5000";
+                window.close();   
             });
+
+
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/intro',
+            //     data: {
+            //         img_give: image.files[0], 
+            //         name_give: name, 
+            //         explanation_give: explanation, 
+            //         mbti_give: mbti, 
+            //         url_give: url, 
+            //         comment_give: comment
+            //     },
+            //     contentType: false,
+            //     processData: false,
+            //     success: function (response) {
+            //         opener.parent.location="http://127.0.0.1:5000";
+            //         window.close();   
+            //     }
+            // });
         }
         
     </script>
 </head>
 <body>
 <div class="mybox" id="window_box">
-    <div class="form-floating mb-3">
-        <input id="img" type="url" class="form-control" placeholder="https://www.url.com/">
-        <label for="floatingTextarea2">사진주소</label>
+    <div class="form-floating mb-3" id="imageForm">
+        <input type="file" id="image" name="image" enctype="multipart/form-data" class="upload-hidden">
+        <!-- <label for="floatingTextarea2">사진주소</label> -->
     </div>
     <div class="form-floating mb-3">
         <textarea id="name" class="form-control" placeholder="Leave a name here"></textarea>

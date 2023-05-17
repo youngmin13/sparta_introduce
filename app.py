@@ -7,6 +7,10 @@ db = client.dbsparta
 
 app.secret_key = "ABCED"
 
+import base64
+import gridfs
+fs = gridfs.GridFS(db)
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -14,15 +18,17 @@ def home():
 @app.route("/intro", methods=["POST"])
 def intro_post():
 
-    img_receive = request.form['img_give']
+    img_receive = request.files['img_give']
     name_receive = request.form['name_give']
     explanation_receive = request.form['explanation_give']
     mbti_receive = request.form['mbti_give']
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
 
+    img_file = fs.put(img_receive, filename=img_receive.filename)
+
     doc = {
-        'picture': img_receive,
+        'picture': img_file,
         'name': name_receive,
         'intro': explanation_receive,
         'mbti': mbti_receive,
@@ -37,7 +43,17 @@ def intro_post():
 @app.route("/intro", methods=["GET"])
 def intro_get():
 
-    all_members = list(db.introduce.find({},{'_id':False}))    
+    all_members = list(db.introduce.find({},{'_id':False}))   
+
+    for member in all_members:
+        image_id = member['picture']
+        if image_id:
+            try:
+                image_data = fs.get(image_id).read()
+                base64_image = base64.b64encode(image_data).decode('utf-8')
+                member['picture'] = 'data:image/jpeg;base64,' + base64_image    ## 'data ....' 이 부분을 앞에 넣어줘야 img에 url로 사용 가능
+            except gridfs.errors.NoFile as e:
+                print("사진이 존재하지 않습니다.")    
 
     return jsonify({'result': all_members})
 
@@ -45,20 +61,25 @@ def intro_get():
 def introInput():
     return render_template('popup.html')
 
-@app.route('/introDelete', methods=["DELETE"])
-def introDelete():
-
-    name = request.form['name_give']
-
-    db.introduce.delete_one({'name' : name})
-
-    return jsonify({'msg':'삭제 완료!'})
-
+@app.route('/page', methods=['DELETE'])
+def deletePage():
+    blogurl = request.args["blogurl"]
+    db.introduce.delete_one({'blog' : blogurl})
+    return jsonify({'message': "삭제완료"})
 
 @app.route('/introDetail/<name>', methods=['GET', 'POST'])
 def introDetail(name):
 
     user = db.introduce.find_one({'name': name})
+
+    image_id = user['picture']
+    if image_id:
+        try:
+            image_data = fs.get(image_id).read()
+            base64_image = base64.b64encode(image_data).decode('utf-8')
+            user['picture'] = 'data:image/jpeg;base64,' + base64_image    ## 'data ....' 이 부분을 앞에 넣어줘야 img에 url로 사용 가능
+        except gridfs.errors.NoFile as e:
+            print("사진이 존재하지 않습니다.")  
 
     return render_template('detail.html', temp=user)
 

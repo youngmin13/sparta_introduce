@@ -67,7 +67,7 @@
                 $('#cards-box').empty();
 
                 rows.forEach((a) => {
-                    // let picture = a['picture'];
+                    let picture = a['picture'];
                     let name = a['name'];
                     // let intro = a['intro'];
                     let mbti = a['mbti'];
@@ -76,37 +76,36 @@
 
                     let temp_html = `<div class="col">
                                         <div class="card">
-                                            <img src="https://cdn.pixabay.com/photo/2016/02/18/18/37/puppy-1207816_1280.jpg"
+                                            <img src="${picture}"
                                                 class="card-img-top" alt="...">
                                             <div class="card-body">
                                                 <h5 class="card-title">${name}</h5>
                                                 <p class="card-text">${mbti}</p>
                                                 <button onclick="detailPage()">상세페이지</button>
-                                                <button onclick="updatePage()">수정</button>
-                                                <button onclick="deleteCard()">삭제</button>
                                             </div>
                                         </div>
                                     </div>`;
+
                     $('#cards-box').append(temp_html);
                 });
             });
         }        
 
-        function deleteCard() {
-            let Btn = $('.card-body');            
+        // function deleteCard() {
+        //     let Btn = $('.card-body');            
 
-            Btn.click(function () {                
-                let tmp = $(this).find('.card-title');
-                let name = tmp[0]['innerText'];
+        //     Btn.click(function () {                
+        //         let tmp = $(this).find('.card-title');
+        //         let name = tmp[0]['innerText'];
 
-                let formData = new FormData();
-                formData.append("name_give", name);
+        //         let formData = new FormData();
+        //         formData.append("name_give", name);
 
-                fetch('/introDelete', { method: "DELETE", body: formData }).then((res) => res.json()).then((data) => {           
-                    window.location.reload(); 
-                });
-            })
-        }       
+        //         fetch('/introDelete', { method: "DELETE", body: formData }).then((res) => res.json()).then((data) => {           
+        //             window.location.reload(); 
+        //         });
+        //     })
+        // }       
 
         function detailPage() {
             let Btn = $('.card-body');  
@@ -118,16 +117,16 @@
             });                      
         }
 
-        function updatePage() {
-            let Btn = $('.card-body');    
+        // function updatePage() {
+        //     let Btn = $('.card-body');    
 
-            Btn.click(function () {                
-                let tmp = $(this).find('.card-title');
-                let name = tmp[0]['innerText'];  
+        //     Btn.click(function () {                
+        //         let tmp = $(this).find('.card-title');
+        //         let name = tmp[0]['innerText'];  
 
-                window.open('/introUpdate/' +  name, '팀원 정보 입력', 'width=800, height=600');                                        
-            });            
-        }
+        //         window.open('/introUpdate/' +  name, '팀원 정보 입력', 'width=800, height=600');                                        
+        //     });            
+        // }
 
     </script>
 </head>
@@ -148,8 +147,8 @@
                         <h5 class="card-title"></h5>
                         <p class="card-text"></p>
                         <button onclick="detailPage()" class="detail">상세페이지</button>
-                        <button onclick="updatePage()" class="edit">수정</button>
-                        <button onclick="deleteCard()">삭제</button>
+                        <!-- <button onclick="updatePage()" class="edit">수정</button> -->
+                        <!-- <button onclick="deleteCard()">삭제</button> -->
                     </div>  
                 </div>
             </div>            
