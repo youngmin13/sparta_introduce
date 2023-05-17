@@ -46,6 +46,10 @@
             max-width: 1200px;
         }
 
+        /* .card-body>button:hover {
+            color: red;
+        } */
+
         
     </style>
     <script>
@@ -78,7 +82,7 @@
                                                 <h5 class="card-title">${name}</h5>
                                                 <p class="card-text">${mbti}</p>
                                                 <button onclick="detailPage()">상세페이지</button>
-                                                <button onclick="">수정</button>
+                                                <button onclick="updatePage()">수정</button>
                                                 <button onclick="deleteCard()">삭제</button>
                                             </div>
                                         </div>
@@ -102,17 +106,26 @@
                     window.location.reload(); 
                 });
             })
-        }
+        }       
 
         function detailPage() {
+            let Btn = $('.card-body');  
+
+            Btn.click(function () {                      
+                let tmp = $(this).find('.card-title');
+                let name = tmp[0]['innerText'];  
+                location.href = '/introDetail/' +  name;          
+            });                      
+        }
+
+        function updatePage() {
             let Btn = $('.card-body');    
 
             Btn.click(function () {                
                 let tmp = $(this).find('.card-title');
-                let name = tmp[0]['innerText'];
+                let name = tmp[0]['innerText'];  
 
-                location.href = '/introDetail/' +  name;
-
+                window.open('/introUpdate/' +  name, '팀원 정보 입력', 'width=800, height=600');                                        
             });            
         }
 
@@ -123,7 +136,7 @@
 <body>
     <div class="mytitle">
         <h1>반가워조의 팀 소개 페이지</h1>
-        <button href="Page.html" onclick="window.open('/intro/input', '팀원 정보 입력', 'width=800, height=600'); return false;"> 팀원 추가</button>
+        <button onclick="window.open('/intro/input', '팀원 정보 입력', 'width=800, height=600'); return false;"> 팀원 추가</button>
     </div>
     <div class="mycards">
         <div class="row-cols-1 row-cols-md-2 g-4 row myrow" id="cards-box">
@@ -134,10 +147,10 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         <p class="card-text"></p>
-                        <button onclick="detailPage()">상세페이지</button>
-                        <button onclick="">수정</button>
+                        <button onclick="detailPage()" class="detail">상세페이지</button>
+                        <button onclick="updatePage()" class="edit">수정</button>
                         <button onclick="deleteCard()">삭제</button>
-                    </div>
+                    </div>  
                 </div>
             </div>            
         </div>

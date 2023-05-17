@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>팀원 정보 입력</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .mytitle {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #1f4e5f;
+        }
+
+        .mybox {
+            width: 95%;
+            max-width: 500px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px 0px gray;
+            margin: 20px auto;
+        }
+
+        .mybtns {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 20px;
+        }
+
+        .mybtns > button {
+            margin-right: 10px;
+        }
+    </style>
+    <script>
+
+        function posting() {
+
+            let img = $('#img').val();
+            let name = $('#name').val();
+            let explanation = $('#explanation').val();
+            let mbti = $('#mbti').val();
+            let url = $('#url').val();
+            let comment = $('#comment').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/introUpdate',
+                data: {img_give: img, name_give: name, explanation_give: explanation, mbti_give: mbti, url_give: url, comment_give: comment},
+                success: function (response) {
+                    opener.parent.location="http://127.0.0.1:5000";
+                    window.close();   
+                }
+            });
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="mytitle">
+        <h1>개인정보 수정</h1>
+    </div>
+    <div class="mybox" id="window_box">
+        <div class="form-floating mb-3">
+            <input id="img" type="url" class="form-control" placeholder="https://www.url.com/">
+            <label for="floatingTextarea2">사진주소</label>
+        </div>
+        <div class="form-floating mb-3">
+            {% if temp.name %} 
+                <textarea id="name" class="form-control" placeholder="Leave a name here">{{ temp.name }}</textarea>
+            {% endif %}
+            <label for="floatingTextarea2">이름</label>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea id="explanation" class="form-control" placeholder="Leave a explanation here"></textarea>
+            <label for="floatingTextarea2">자신에 대한 설명</label>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">MBTI</label>
+            <select class="form-select" id="mbti">
+                <option selected>-- 선택하기 --</option>
+                <option>ISTJ</option>
+                <option>ISFJ</option>
+                <option>INFJ</option>
+                <option>INTJ</option>
+                <option>ISTP</option>
+                <option>ISFP</option>
+                <option>INFP</option>
+                <option>INTP</option>
+                <option>ESTP</option>
+                <option>ESFP</option>
+                <option>ENFP</option>
+                <option>ENTP</option>
+                <option>ESTJ</option>
+                <option>ESFJ</option>
+                <option>ENFJ</option>
+                <option>ENTJ</option>
+            </select>
+        </div>
+        <div class="form-floating mb-3">
+            <input id="url" type="url" class="form-control" placeholder="https://www.url.com/">
+            <label for="floatingTextarea2">블로그(tistory, velog)</label>
+        </div>
+        <div class="form-floating">
+            <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
+            <label for="floatingTextarea2">자신의 장점</label>
+        </div>
+        <div class="mybtns">
+            <button onclick="posting()" type="button" class="btn btn-dark">등록하기</button>
+            <input type="button" value="창닫기" onClick="window.close()">
+        </div>
+    </div>
+</body>
+</html>

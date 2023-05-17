@@ -62,5 +62,37 @@ def introDetail(name):
 
     return render_template('detail.html', temp=user)
 
+@app.route('/introUpdate/<name>', methods=['GET', 'POST'])
+def introUpdate(name):
+
+    user = db.introduce.find_one({'name': name})
+
+    return render_template('update.html', temp=user)
+
+@app.route("/introUpdate", methods=["POST"])
+def intro_update():
+
+    img_receive = request.form['img_give']
+    name_receive = request.form['name_give']
+    explanation_receive = request.form['explanation_give']
+    mbti_receive = request.form['mbti_give']
+    url_receive = request.form['url_give']
+    comment_receive = request.form['comment_give']
+
+    db.introduce.update_one(
+        {'name': name_receive},
+        {'$set':{
+            'picture': img_receive,
+            'name': name_receive,
+            'intro': explanation_receive,
+            'mbti': mbti_receive,
+            'blog': url_receive,
+            'good': comment_receive
+            }
+        }
+    )
+        
+    return jsonify({'msg':'저장 완료!'})
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
