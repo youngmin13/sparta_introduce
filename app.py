@@ -83,27 +83,31 @@ def introDetail(name):
 
     return render_template('detail.html', temp=user)
 
-@app.route('/introUpdate/<name>', methods=['GET', 'POST'])
-def introUpdate(name):
+@app.route('/introUpdate', methods=['GET', 'POST'])
+def introUpdate():
 
-    user = db.introduce.find_one({'name': name})
+    blogurl = request.args["blogurl"]
+
+    user = db.introduce.find_one({'blog': blogurl})
 
     return render_template('update.html', temp=user)
 
-@app.route("/introUpdate", methods=["POST"])
-def intro_update():
+@app.route("/introEdit/<name>", methods=["POST"])
+def intro_update(name):
 
-    img_receive = request.form['img_give']
+    img_receive = request.files['img_give']
     name_receive = request.form['name_give']
     explanation_receive = request.form['explanation_give']
     mbti_receive = request.form['mbti_give']
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
 
+    img_file = fs.put(img_receive, filename=img_receive.filename)
+
     db.introduce.update_one(
-        {'name': name_receive},
+        {'name': name},
         {'$set':{
-            'picture': img_receive,
+            'picture': img_file,
             'name': name_receive,
             'intro': explanation_receive,
             'mbti': mbti_receive,
@@ -111,7 +115,7 @@ def intro_update():
             'good': comment_receive
             }
         }
-    )
+    )        
         
     return jsonify({'msg':'저장 완료!'})
 

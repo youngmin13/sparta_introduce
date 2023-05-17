@@ -71,7 +71,7 @@
     </div>
 </body>
 <script>
-    
+
     const deleteButtonOut = document.querySelectorAll(".deleteBtn");
 
     deleteButtonOut.forEach((button) => {
@@ -90,6 +90,30 @@
                 .then((data) => {
                     alert(data["message"]);
                     window.location.href = "/";
+                });
+        })
+    });
+
+    const updateButtonOut = document.querySelectorAll(".updateBtn");
+
+    updateButtonOut.forEach((button) => {
+        button.addEventListener("click", () => {
+            let blogurl = $(button)
+                .closest(".myintro")
+                .find(".card_blog")
+                .text();
+                
+            const url = `/introUpdate?blogurl=${encodeURIComponent(blogurl.slice(10))}`
+            fetch(url, {
+                method: "POST",
+            })
+                .then((response) => {
+                    window.open(url, '팀원 정보 입력', 'width=800, height=600');
+                    return response.json();
+                })
+                .then((data) => {
+                    // alert(data["message"]);
+                    // window.location.href = url;
                 });
         })
     })
