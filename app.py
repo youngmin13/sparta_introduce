@@ -5,8 +5,6 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://sparta:test@cluster0.sogtrtv.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
 
-app.secret_key = "ABCED"
-
 import base64
 import gridfs
 fs = gridfs.GridFS(db)

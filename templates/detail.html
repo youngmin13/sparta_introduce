@@ -14,6 +14,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
     <title>Document</title>
     <style>
+
+        body {
+            background-color: #FFFFF3;
+        }
+
         .mytitle {
             width: 100%;
             height: 120px;
@@ -26,13 +31,35 @@
         }
 
         .myintro {
-            height: 440px;
+            height: 600px;
             padding: 30px;
-            width: 1200px;
-            margin: 70px auto 0 auto;
-            border: 1px solid black;
+            width: 1500px;
+            margin: 100px auto 0 auto;
+            border: 1px solid #A593E0;
             border-radius: 30px;
         }
+
+        .card-header {
+            font-size: 30px;
+        }
+
+        .card-text {
+            padding: 10px;
+        }
+
+        .updateBtn {
+            margin-left: 440px;
+        }
+
+        .input-group-text {
+            justify-content: center;
+            width: 150px;
+        }
+        
+        .myimg {
+            margin-right: 20px;
+        }
+
     </style>
     <script>
     </script>
@@ -44,30 +71,35 @@
     </div>
     <div class="row justify-content-center myintro" id="cards-box">
         {% if temp.picture %}
-        <img class="myimg" src="{{ temp.picture }}" alt="..." style="width: 500px">
+        <img class="myimg" src="{{ temp.picture }}" alt="..." style="width: 800px; height: 540px;">
         {% endif %}
-        <div class="card mb-3" style="width: 600px ">
+        <div class="card mb-3" style="width: 600px; height: 540px;">
             {% if temp.name %}
             <div class="card-header bg-transparent my">{{ temp.name }}</div>
             {% endif %}
             <div class="card-body">
                 {% if temp.intro %}
+                <label class="input-group-text">협업스타일</label>
                 <p class="card-text">{{ temp.intro}}</p>
                 {% endif %}
                 {% if temp.mbti %}
-                <p class="card-text">MBTI : {{ temp.mbti }}</p>
+                <label class="input-group-text">MBTI</label>
+                <p class="card-text">{{ temp.mbti }}</p>
                 {% endif %}
                 {% if temp.blog %}
-                <p class="card-text card_blog">blog 주소 : {{ temp.blog }}</p>
+                <label class="input-group-text">블로그 주소</label>
+                <p class="card-text card_blog">{{ temp.blog }}</p>
                 {% endif %}
                 {% if temp.good %}
+                <label class="input-group-text">장점</label>
                 <p class="card-text">{{ temp.good }}</p>
                 {% endif %}
             </div>
-            <div class="card-footer bg-transparent"></div>
+            <div class="card-footer bg-transparent">
+                <button type="button" class="updateBtn">수정</button>
+                <button type="button" class="deleteBtn">삭제</button>
+            </div>
         </div>
-        <button type="button" class="updateBtn">수정</button>
-        <button type="button" class="deleteBtn">삭제</button>
     </div>
 </body>
 <script>
@@ -80,7 +112,7 @@
                 .closest(".myintro")
                 .find(".card_blog")
                 .text()
-            const url = `/page?blogurl=${encodeURIComponent(blogurl.slice(10))}`
+            const url = `/page?blogurl=${encodeURIComponent(blogurl)}`
             fetch(url, {
                 method: "DELETE",
             })
@@ -103,7 +135,7 @@
                 .find(".card_blog")
                 .text();
                 
-            const url = `/introUpdate?blogurl=${encodeURIComponent(blogurl.slice(10))}`
+            const url = `/introUpdate?blogurl=${encodeURIComponent(blogurl)}`
             fetch(url, {
                 method: "POST",
             })

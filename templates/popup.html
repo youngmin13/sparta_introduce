@@ -17,12 +17,46 @@
             font-family: 'Gowun Dodum', sans-serif;
         }
 
+        .mypic {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            background-image: url('https://png.pngtree.com/png-clipart/20190516/original/pngtree-the-korean-traditional-paper-texture-background-png-image_3735254.jpg');
+            background-position: center 30%;
+            background-size: cover;
+        }
+        .mypic > h1 {
+            margin-top: 30px;
+            font-weight : 900;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: black;
+
+            border: 2px solid #E0E3DA;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px black;
+            background-color: #E0E3DA;
+        }
+
         .mybox {
-            width: 95%;
-            max-width: 500px;
+            width: 90%;
             padding: 20px;
-            box-shadow: 0px 0px 10px 0px gray;
-            margin: 20px auto;
+            margin: 20px auto 20px auto;
+            font-weight: 900;
+
+            border: 2px solid #E0E3DA;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px black;
+            /*background-color: #E0E3DA;*/
+            background: transparent;
         }
 
         .mybtns {
@@ -77,21 +111,23 @@
     </script>
 </head>
 <body>
+<div class="mypic">
+<h1>정보 입력</h1>
 <div class="mybox" id="post-box">
-    <div class="form-floating mb-3">
+    <div class="form-floating mb-3" style="font-weight: bold; font-size: large;">
         <input type="file" class="custom-file-input" id="img-file">
     </div>
-    <div class="form-floating mb-3">
-        <textarea id="name" class="form-control" placeholder="Leave a name here"></textarea>
+    <div class="form-floating mb-3" style="font-weight: bold; font-size: large;">
+        <textarea id="name" class="form-control" placeholder="Leave a name here" style="border: none; background: transparent; box-shadow: 0 0 10px 0 dimgray;"></textarea>
         <label for="floatingTextarea2">이름</label>
     </div>
-    <div class="form-floating mb-3">
-        <textarea id="explanation" class="form-control" placeholder="Leave a explanation here"></textarea>
+    <div class="form-floating mb-3" style="font-weight: bold; font-size: large;">
+        <textarea id="explanation" class="form-control" placeholder="Leave a explanation here" style="border: none; background: transparent; box-shadow: 0 0 10px 0 dimgray;"></textarea>
         <label for="floatingTextarea2">자신에 대한 설명</label>
     </div>
-    <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect01">MBTI</label>
-        <select class="form-select" id="mbti">
+    <div class="input-group mb-3" style="font-weight: bold; font-size: large;">
+        <label class="input-group-text" for="inputGroupSelect01" style="border: none; background: transparent; box-shadow: 0 0 10px 0 dimgray;">MBTI</label>
+        <select class="form-select" style="border-radius: 20px; background: transparent; box-shadow: 0 0 10px 0 dimgray; margin-right: 450px; margin-left: 10px; text-align: center;" id="mbti">
             <option selected>-- 선택하기 --</option>
             <option>ISTJ</option>
             <option>ISFJ</option>
@@ -111,18 +147,19 @@
             <option>ENTJ</option>
         </select>
     </div>
-    <div class="form-floating mb-3">
-        <input id="url" type="url" class="form-control" placeholder="https://www.url.com/">
+    <div class="form-floating mb-3" style="font-weight: bold; font-size: large;">
+        <input id="url" type="url" class="form-control" placeholder="https://www.url.com/" style="border: none; background: transparent; box-shadow: 0 0 10px 0 dimgray;">
         <label for="floatingTextarea2">블로그(tistory, velog)</label>
     </div>
-    <div class="form-floating">
-        <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
+    <div class="form-floating" style="font-weight: bold; font-size: large;">
+        <textarea id="comment" class="form-control" placeholder="Leave a comment here" style="border: none; background: transparent; box-shadow: 0 0 10px 0 dimgray;"></textarea>
         <label for="floatingTextarea2">자신의 장점</label>
     </div>
     <div class="mybtns">
         <button type="submit" onclick="posting()" class="btn btn-primary">등록하기</button>
-        <button type="button" onClick="window.close()" class="btn btn-primary">창닫기</button>
+        <button type="button" onClick="window.close()" class="btn btn-dark">창닫기</button>
     </div>
 </div>
+    </div>
 </body>
 </html>
