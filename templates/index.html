@@ -7,6 +7,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -17,6 +21,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
 
     <style>
+        body {
+            background-color: #FFFFF3;
+            z-index: -1;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: yellow;
+            z-index: -1;
+        }
+
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
         .mytitle {
             width: 100%;
             height: 250px;
@@ -24,7 +47,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-bottom: 2px solid #1f4e5f;
+            border-bottom: 2px solid #566270;
+            color: #566270;
         }
 
         .mytitle>button {
@@ -34,10 +58,15 @@
             border-radius: 50px;
             border: 1px solid black;
             margin-top: 50px;
+            cursor: pointer;
+            transition:
+                color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
 
         .mytitle>button:hover {
-            border: 2px solid #79a8a9;
+            color: #fff;
+            background-color: #A593E0;
+            border: 1px solid #A593E0;
         }
 
         .mycards {
@@ -46,11 +75,26 @@
             max-width: 1200px;
         }
 
-        /* .card-body>button:hover {
-            color: red;
-        } */
+        .card-img-top {
+            width: 100%;
+            object-fit: cover;
+            height: 400px;
+        }
 
-        
+        .detailBtn {
+            color: #A593E0;
+            background-color: #fff;
+            border: 0.5px solid #A593E0;
+            display: block;
+            /* 가로 너비를 100%로 설정하기 위해 블록 수준 요소로 변경 */
+            margin: 0 auto;
+            /* 좌우 여백을 자동으로 조정하여 가운데 정렬 */
+        }
+
+        .detailBtn:hover {
+            color: #fff;
+            background-color: #A593E0;
+        }
     </style>
     <script>
 
@@ -73,13 +117,13 @@
 
 
                     let temp_html = `<div class="col">
-                                        <div class="card">
+                                        <div class="card" style="border: 1px solid #E0E3DA;">
                                             <img src="${picture}"
                                                 class="card-img-top" alt="...">
                                             <div class="card-body">
                                                 <h5 class="card-title">${name}</h5>
                                                 <p class="card-text">${mbti}</p>
-                                                <button onclick="detailPage()">상세페이지</button>
+                                                <button onclick="detailPage()"" class = "detailBtn btn">상세페이지</button>
                                             </div>
                                         </div>
                                     </div>`;
@@ -87,40 +131,39 @@
                     $('#cards-box').append(temp_html);
                 });
             });
-        }        
+        }
 
         function detailPage() {
-            let Btn = $('.card-body');  
+            let Btn = $('.card-body');
 
-            Btn.click(function () {                      
+            Btn.click(function () {
                 let tmp = $(this).find('.card-title');
-                let name = tmp[0]['innerText'];  
-                location.href = '/introDetail/' +  name;          
-            });                      
+                let name = tmp[0]['innerText'];
+                location.href = '/introDetail/' + name;
+            });
         }
 
     </script>
 </head>
 
-
 <body>
-    <div class="mytitle">
+    <div class="mytitle ">
         <h1>반가워조의 팀 소개 페이지</h1>
-        <button onclick="window.open('/intro/input', '팀원 정보 입력', 'width=800, height=600'); return false;"> 팀원 추가</button>
+        <button onclick="window.open('/intro/input', '팀원 정보 입력', 'width=800, height=600'); return false;"> 팀원
+            추가</button>
     </div>
     <div class="mycards">
         <div class="row-cols-1 row-cols-md-2 g-4 row myrow" id="cards-box">
-            <div class="col">
-                <div class="card mycard">
-                    <img src=""
-                        class="card-img-top" alt="...">
+            <!-- <div class="col">
+                <div class="mycard card" style="border: 1px solid #E0E3DA ">
+                    <img src="" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         <p class="card-text"></p>
-                        <button onclick="detailPage()" class="detail">상세페이지</button>
-                    </div>  
+                        <button onclick="detailPage()" class="detail detailBtn btn"></button>
+                    </div>
                 </div>
-            </div>            
+            </div> -->
         </div>
     </div>
 </body>
