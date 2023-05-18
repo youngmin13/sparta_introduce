@@ -115,20 +115,35 @@
                     let name = a['name'];
                     let mbti = a['mbti'];
 
+                    if (name == "반가워조") {
+                        let temp_html = `<div class="col">
+                                        <div class="card" style="border: 1px solid #E0E3DA">
+                                            <img src="${picture}"
+                                                class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${name}</h5>
+                                                <p class="card-text">아자아자 파이팅</p>
+                                                <button onclick="detailPage()" class = "detailBtn btn">상세페이지</button>
+                                            </div>
+                                        </div>
+                                    </div>`;
 
-                    let temp_html = `<div class="col">
+                        $('#cards-box').append(temp_html);
+                    }
+                    else {
+                        let temp_html = `<div class="col">
                                         <div class="card" style="border: 1px solid #E0E3DA">
                                             <img src="${picture}"
                                                 class="card-img-top" alt="...">
                                             <div class="card-body">
                                                 <h5 class="card-title">${name}</h5>
                                                 <p class="card-text">${mbti}</p>
-                                                <button onclick="detailPage()"" class = "detailBtn btn">상세페이지</button>
+                                                <button onclick="detailPage()" class = "detailBtn btn">상세페이지</button>
                                             </div>
                                         </div>
                                     </div>`;
-
-                    $('#cards-box').append(temp_html);
+                        $('#cards-box').append(temp_html);
+                    }                    
                 });
             });
         }
