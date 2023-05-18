@@ -15,16 +15,22 @@ fs = gridfs.GridFS(db)
 def home():
     return render_template('index.html')
 
-@app.route("/intro", methods=["POST"])
+# 클라이언트가 서버에 이미지 정보 업로드
+@app.route('/intro', methods=['POST'])
 def intro_post():
+    img_receive = request.files["img_give"]
+    name_receive = request.form["name_give"]
+    explanation_receive = request.form["explanation_give"]
+    mbti_receive = request.form["mbti_give"]
+    url_receive = request.form["url_give"]
+    comment_receive = request.form["comment_give"]
 
-    img_receive = request.files['img_give']
-    name_receive = request.form['name_give']
-    explanation_receive = request.form['explanation_give']
-    mbti_receive = request.form['mbti_give']
-    url_receive = request.form['url_give']
-    comment_receive = request.form['comment_give']
-
+    # today = datetime.now()
+    # mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+    # filename = f'file-{mytime}'
+    # extension = img_receive.filename.split('.')[-1]
+    # save_to = f'static/{filename}.{extension}'
+    # img_receive.save(save_to)
     img_file = fs.put(img_receive, filename=img_receive.filename)
 
     doc = {
@@ -35,10 +41,9 @@ def intro_post():
         'blog': url_receive,
         'good': comment_receive
     }
-
     db.introduce.insert_one(doc)
-    
-    return jsonify({'msg':'저장 완료!'})
+
+    return jsonify({'msg': '업로드 완료!'})
 
 @app.route("/intro", methods=["GET"])
 def intro_get():

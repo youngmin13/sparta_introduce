@@ -39,58 +39,47 @@
         }
     </style>
     <script>
-
+        // 서버에 이미지 정보 올리기
         function posting() {
-
-            // let img = $('#img').val();
-            let image = document.querySelector("#image");
-            let name = $('#name').val();
+            let img = $('#img-file')[0].files[0]
+            let name = $('#name').val()
             let explanation = $('#explanation').val();
             let mbti = $('#mbti').val();
             let url = $('#url').val();
             let comment = $('#comment').val();
 
-            let formData = new FormData();
-            formData.append("name_give", name);            
-            formData.append("explanation_give", explanation);
-            formData.append("mbti_give", mbti);
-            formData.append("url_give", url);
-            formData.append("comment_give", comment);
-            formData.append("img_give", image.files[0]);
-
-            fetch('/intro', { method: "POST", body: formData }).then((res) => res.json()).then((data) => {           
-                opener.parent.location="http://127.0.0.1:5000";
-                window.close();   
-            });
-
+            let fd = new FormData()
+            fd.append("img_give", img)
+            fd.append("name_give", name)
+            fd.append("explanation_give", explanation)
+            fd.append("mbti_give", mbti)
+            fd.append("url_give", url)
+            fd.append("comment_give", comment)
 
             // $.ajax({
-            //     type: 'POST',
-            //     url: '/intro',
-            //     data: {
-            //         img_give: image.files[0], 
-            //         name_give: name, 
-            //         explanation_give: explanation, 
-            //         mbti_give: mbti, 
-            //         url_give: url, 
-            //         comment_give: comment
-            //     },
+            //     type: "POST",
+            //     url: "/intro",
+            //     data: fd,
+            //     cache: false,
             //     contentType: false,
             //     processData: false,
             //     success: function (response) {
-            //         opener.parent.location="http://127.0.0.1:5000";
-            //         window.close();   
+            //         opener.parent.location = "http://127.0.0.1:5001";
+            //         window.close();
             //     }
             // });
+
+            fetch('/intro', { method: "POST", body: fd }).then((res) => res.json()).then((data) => {
+                opener.parent.location="http://127.0.0.1:5000";
+                window.close();
+            });
         }
-        
     </script>
 </head>
 <body>
-<div class="mybox" id="window_box">
-    <div class="form-floating mb-3" id="imageForm">
-        <input type="file" id="image" name="image" enctype="multipart/form-data" class="upload-hidden">
-        <!-- <label for="floatingTextarea2">사진주소</label> -->
+<div class="mybox" id="post-box">
+    <div class="form-floating mb-3">
+        <input type="file" class="custom-file-input" id="img-file">
     </div>
     <div class="form-floating mb-3">
         <textarea id="name" class="form-control" placeholder="Leave a name here"></textarea>
@@ -131,8 +120,8 @@
         <label for="floatingTextarea2">자신의 장점</label>
     </div>
     <div class="mybtns">
-        <button onclick="posting()" type="button" class="btn btn-dark">등록하기</button>
-        <input type="button" value="창닫기" onClick="window.close()">
+        <button type="submit" onclick="posting()" class="btn btn-primary">등록하기</button>
+        <button type="button" onClick="window.close()" class="btn btn-primary">창닫기</button>
     </div>
 </div>
 </body>
