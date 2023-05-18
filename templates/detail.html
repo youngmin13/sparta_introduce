@@ -18,12 +18,8 @@
             font-family: 'Gowun Dodum', sans-serif;
         }
 
-        body {
-            background-color: #FFFFF3;
-        }
-
         .mytitle {
-            width: 70%;
+            width: 65%;
             height: 120px;
             color: #566270;
             display: flex;
@@ -35,17 +31,28 @@
         }
 
         .myintro {
-            height: 600px;
+            height: 70%;
             padding: 30px;
-            width: 1500px;
-            margin: 100px auto 0 auto;
+            width: 65%;
+            margin: 100px auto 200px auto;
             border: 1px solid #566270;
             border-radius: 20px;
         }
 
         .card-header {
+            padding-top: 10px;
             font-size: 30px;
             margin: auto;
+            color: #566270;
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            /* 세로 방향으로 정렬하기 위해 추가 */
+            align-items: center;
+            /* 가로 방향으로 정렬하기 위해 추가 */
         }
 
         .card-text {
@@ -54,6 +61,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #566270;
         }
 
         .input-group-text {
@@ -64,24 +72,30 @@
             border: 0.5px solid #A593E0;
             font-weight: bold;
             margin: auto;
-
         }
 
         .myimg {
             margin-right: 20px;
-            border-radius: 10px;
+            border-radius: 6px;
+            border: 1px solid #E0E3DA;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            /* 버튼들을 오른쪽으로 정렬 */
         }
 
         .mybtn {
             border-radius: 10px;
             width: 100px;
+            margin-left: 10px;
         }
 
         .updateBtn {
             color: #fff;
             background-color: #A593E0;
             border: 0.5px solid #A593E0;
-            margin-left: 330px;
             transition:
                 color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
@@ -97,6 +111,7 @@
             color: #A593E0;
             background-color: #fff;
             border: 0.5px solid #A593E0;
+            margin-right: 0;
             transition:
                 color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
@@ -118,9 +133,9 @@
     </div>
     <div class="row justify-content-center myintro" id="cards-box">
         {% if temp.picture %}
-        <img class="myimg" src="{{ temp.picture }}" alt="..." style="width: 800px; height: 540px;">
+        <img class="myimg" src="{{ temp.picture }}" alt="..." style="width: 45%;" />
         {% endif %}
-        <div class="card mb-3" style="width: 600px; height: 540px;">
+        <div class="card" style="width: 45%;">
             {% if temp.name %}
             <div class="card-header bg-transparent my">{{ temp.name }}</div>
             {% endif %}
@@ -128,23 +143,20 @@
                 {% if temp.intro %}
                 <label class="input-group-text">협업스타일</label>
                 <p class="card-text">{{ temp.intro}}</p>
-                {% endif %}
-                {% if temp.mbti %}
+                {% endif %} {% if temp.mbti %}
                 <label class="input-group-text">MBTI</label>
                 <p class="card-text">{{ temp.mbti }}</p>
-                {% endif %}
-                {% if temp.blog %}
+                {% endif %} {% if temp.blog %}
                 <label class="input-group-text">블로그 주소</label>
                 <p class="card-text card_blog">{{ temp.blog }}</p>
-                {% endif %}
-                {% if temp.good %}
+                {% endif %} {% if temp.good %}
                 <label class="input-group-text">장점</label>
                 <p class="card-text">{{ temp.good }}</p>
                 {% endif %}
             </div>
             <div class="card-footer bg-transparent">
-                <button type="button" class="updateBtn">수정</button>
-                <button type="button" class="deleteBtn">삭제</button>
+                <button type="button" class="mybtn updateBtn">수정</button>
+                <button type="button" class="mybtn deleteBtn">삭제</button>
             </div>
         </div>
     </div>

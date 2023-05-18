@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -15,15 +18,11 @@
     <title>{{ temp.name }}의 상세 페이지</title>
     <style>
         * {
-            font-family: 'Gowun Dodum', sans-serif;
-        }
-
-        body {
-            background-color: #FFFFF3;
+            font-family: "Gowun Dodum", sans-serif;
         }
 
         .mytitle {
-            width: 70%;
+            width: 65%;
             height: 120px;
             color: #566270;
             display: flex;
@@ -35,17 +34,28 @@
         }
 
         .myintro {
-            height: 600px;
+            height: 70%;
             padding: 30px;
-            width: 1500px;
-            margin: 100px auto 0 auto;
+            width: 65%;
+            margin: 100px auto 200px auto;
             border: 1px solid #566270;
             border-radius: 20px;
         }
 
         .card-header {
+            padding-top: 10px;
             font-size: 30px;
             margin: auto;
+            color: #566270;
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            /* 세로 방향으로 정렬하기 위해 추가 */
+            align-items: center;
+            /* 가로 방향으로 정렬하기 위해 추가 */
         }
 
         .card-text {
@@ -54,62 +64,69 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #566270;
         }
 
         .input-group-text {
             justify-content: center;
             width: 150px;
-            color: #A593E0;
+            color: #a593e0;
             background-color: #fff;
-            border: 0.5px solid #A593E0;
+            border: 0.5px solid #a593e0;
             font-weight: bold;
             margin: auto;
-
         }
 
         .myimg {
             margin-right: 20px;
-            border-radius: 10px;
+            border-radius: 6px;
+            border: 1px solid #e0e3da;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            /* 버튼들을 오른쪽으로 정렬 */
         }
 
         .mybtn {
             border-radius: 10px;
             width: 100px;
+            margin-left: 10px;
         }
 
         .updateBtn {
             color: #fff;
-            background-color: #A593E0;
-            border: 0.5px solid #A593E0;
-            margin-left: 330px;
-            transition:
-                color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            background-color: #a593e0;
+            border: 0.5px solid #a593e0;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+                border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
 
         .updateBtn:hover {
-            color: #A593E0;
+            color: #a593e0;
             background-color: #fff;
             font-weight: bold;
-            border: 2px solid #A593E0;
+            border: 2px solid #a593e0;
         }
 
         .deleteBtn {
-            color: #A593E0;
+            color: #a593e0;
             background-color: #fff;
-            border: 0.5px solid #A593E0;
-            transition:
-                color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            border: 0.5px solid #a593e0;
+            margin-right: 0;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+                border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
 
         .deleteBtn:hover {
             color: #fff;
-            background-color: #A593E0;
+            background-color: #a593e0;
             font-weight: bold;
-            border: 2px solid #A593E0;
+            border: 2px solid #a593e0;
         }
     </style>
-    <script>
-    </script>
+    <script></script>
 </head>
 
 <body>
@@ -118,9 +135,9 @@
     </div>
     <div class="row justify-content-center myintro" id="cards-box">
         {% if temp.picture %}
-        <img class="myimg" src="{{ temp.picture }}" alt="..." style="width: 800px; height: 540px;">
+        <img class="myimg" src="{{ temp.picture }}" alt="..." style="width: 45%" />
         {% endif %}
-        <div class="card mb-3" style="width: 600px; height: 540px;">
+        <div class="card" style="width: 45%">
             {% if temp.name %}
             <div class="card-header bg-transparent my">{{ temp.name }}</div>
             {% endif %}
@@ -141,24 +158,19 @@
                 {% endif %}
             </div>
             <div class="card-footer bg-transparent">
-                <button type="button" class="updateBtn">수정</button>
-                <button type="button" class="deleteBtn">삭제</button>
+                <button type="button" class="mybtn updateBtn">수정</button>
+                <button type="button" class="mybtn deleteBtn">삭제</button>
             </div>
         </div>
     </div>
 </body>
 <script>
-
-
     const deleteButtonOut = document.querySelectorAll(".deleteBtn");
 
     deleteButtonOut.forEach((button) => {
         button.addEventListener("click", () => {
-            let blogurl = $(button)
-                .closest(".myintro")
-                .find(".card_blog")
-                .text()
-            const url = `/page?blogurl=${encodeURIComponent(blogurl)}`
+            let blogurl = $(button).closest(".myintro").find(".card_blog").text();
+            const url = `/page?blogurl=${encodeURIComponent(blogurl)}`;
             fetch(url, {
                 method: "DELETE",
             })
@@ -169,33 +181,29 @@
                     alert(data["message"]);
                     window.location.href = "/";
                 });
-        })
+        });
     });
 
     const updateButtonOut = document.querySelectorAll(".updateBtn");
 
     updateButtonOut.forEach((button) => {
         button.addEventListener("click", () => {
-            let blogurl = $(button)
-                .closest(".myintro")
-                .find(".card_blog")
-                .text();
+            let blogurl = $(button).closest(".myintro").find(".card_blog").text();
 
-            const url = `/introUpdate?blogurl=${encodeURIComponent(blogurl)}`
+            const url = `/introUpdate?blogurl=${encodeURIComponent(blogurl)}`;
             fetch(url, {
                 method: "POST",
             })
                 .then((response) => {
-                    window.open(url, '팀원 정보 입력', 'width=800, height=600');
+                    window.open(url, "팀원 정보 입력", "width=800, height=600");
                     return response.json();
                 })
                 .then((data) => {
                     // alert(data["message"]);
                     // window.location.href = url;
                 });
-        })
-    })
-
+        });
+    });
 </script>
 
 </html>
