@@ -86,6 +86,22 @@ def introDetail(name):
 
     return render_template('detail.html', temp=user)
 
+@app.route('/introTeam/<name>', methods=['GET', 'POST'])
+def introTeam(name):
+
+    user = db.introduce.find_one({'name': name})
+
+    image_id = user['picture']
+    if image_id:
+        try:
+            image_data = fs.get(image_id).read()
+            base64_image = base64.b64encode(image_data).decode('utf-8')
+            user['picture'] = 'data:image/jpeg;base64,' + base64_image    ## 'data ....' 이 부분을 앞에 넣어줘야 img에 url로 사용 가능
+        except gridfs.errors.NoFile as e:
+            print("사진이 존재하지 않습니다.")  
+
+    return render_template('hello.html', temp=user)
+
 @app.route('/introUpdate', methods=['GET', 'POST'])
 def introUpdate():
 

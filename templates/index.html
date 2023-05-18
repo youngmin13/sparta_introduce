@@ -139,7 +139,10 @@
             Btn.click(function () {
                 let tmp = $(this).find('.card-title');
                 let name = tmp[0]['innerText'];
-                location.href = '/introDetail/' + name;
+                if (name == "반가워조")
+                    location.href = '/introTeam/' + name;
+                else
+                    location.href = '/introDetail/' + name;
             });
         }
 
