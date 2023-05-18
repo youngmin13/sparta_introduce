@@ -14,8 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
     <title>{{ temp.name }}의 상세 페이지</title>
     <style>
-
-* {
+        * {
             font-family: 'Gowun Dodum', sans-serif;
         }
 
@@ -108,7 +107,6 @@
             font-weight: bold;
             border: 2px solid #A593E0;
         }
-
     </style>
     <script>
     </script>
@@ -137,7 +135,9 @@
                 {% endif %}
                 <label class="input-group-text">우리 팀의 약속</label>
                 {% if temp.good %}
-                <p class="card-text">{{ temp.good }}</p>
+                {% autoescape false %}
+                <p class="card-text">{{ temp.good | replace("\\n", "<br/>") }}</p>
+                {% endautoescape %}
                 {% endif %}
             </div>
             <div class="card-footer bg-transparent">
@@ -149,52 +149,52 @@
 </body>
 <script>
 
-    
-const deleteButtonOut = document.querySelectorAll(".deleteBtn");
 
-deleteButtonOut.forEach((button) => {
-    button.addEventListener("click", () => {
-        let blogurl = $(button)
-            .closest(".myintro")
-            .find(".card_blog")
-            .text()
-        const url = `/page?blogurl=${encodeURIComponent(blogurl)}`
-        fetch(url, {
-            method: "DELETE",
-        })
-            .then((response) => {
-                return response.json();
+    const deleteButtonOut = document.querySelectorAll(".deleteBtn");
+
+    deleteButtonOut.forEach((button) => {
+        button.addEventListener("click", () => {
+            let blogurl = $(button)
+                .closest(".myintro")
+                .find(".card_blog")
+                .text()
+            const url = `/page?blogurl=${encodeURIComponent(blogurl)}`
+            fetch(url, {
+                method: "DELETE",
             })
-            .then((data) => {
-                alert(data["message"]);
-                window.location.href = "/";
-            });
-    })
-});
-
-const updateButtonOut = document.querySelectorAll(".updateBtn");
-
-updateButtonOut.forEach((button) => {
-    button.addEventListener("click", () => {
-        let blogurl = $(button)
-            .closest(".myintro")
-            .find(".card_blog")
-            .text();
-            
-        const url = `/introUpdate?blogurl=${encodeURIComponent(blogurl)}`
-        fetch(url, {
-            method: "POST",
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    alert(data["message"]);
+                    window.location.href = "/";
+                });
         })
-            .then((response) => {
-                window.open(url, '팀원 정보 입력', 'width=800, height=600');
-                return response.json();
+    });
+
+    const updateButtonOut = document.querySelectorAll(".updateBtn");
+
+    updateButtonOut.forEach((button) => {
+        button.addEventListener("click", () => {
+            let blogurl = $(button)
+                .closest(".myintro")
+                .find(".card_blog")
+                .text();
+
+            const url = `/introUpdate?blogurl=${encodeURIComponent(blogurl)}`
+            fetch(url, {
+                method: "POST",
             })
-            .then((data) => {
-                // alert(data["message"]);
-                // window.location.href = url;
-            });
+                .then((response) => {
+                    window.open(url, '팀원 정보 입력', 'width=800, height=600');
+                    return response.json();
+                })
+                .then((data) => {
+                    // alert(data["message"]);
+                    // window.location.href = url;
+                });
+        })
     })
-})
 
 </script>
 
