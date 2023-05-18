@@ -130,7 +130,7 @@
             fetch("/introEdit/{{ temp.name }}", { method: "POST", body: fd })
                 .then((res) => res.json())
                 .then((data) => {
-                    opener.parent.location = "http://127.0.0.1:5001";
+                    opener.parent.location = "http://127.0.0.1:5000";
                     window.close();
                 });
         }
