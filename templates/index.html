@@ -22,17 +22,7 @@
 
     <style>
         body {
-            background-color: #FFFFF3;
-            z-index: -1;
-        }
-
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: yellow;
+            background-color: white;
             z-index: -1;
         }
 
@@ -47,7 +37,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-bottom: 2px solid #566270;
+            border-bottom: 1px solid #566270;
             color: #566270;
         }
 
@@ -56,7 +46,7 @@
             height: 50px;
             background-color: transparent;
             border-radius: 50px;
-            border: 1px solid black;
+            border: 1px solid #E0E3DA;
             margin-top: 50px;
             cursor: pointer;
             transition:
@@ -79,16 +69,18 @@
             width: 100%;
             object-fit: cover;
             height: 400px;
+
         }
 
-        .detailBtn {
+         .detailBtn {
             color: #A593E0;
             background-color: #fff;
-            border: 0.5px solid #A593E0;
+            border: 0.5px solid #E0E3DA;
             display: block;
             /* 가로 너비를 100%로 설정하기 위해 블록 수준 요소로 변경 */
             margin: 0 auto;
             /* 좌우 여백을 자동으로 조정하여 가운데 정렬 */
+            width: 200px;
         }
 
         .detailBtn:hover {
@@ -143,7 +135,7 @@
                                         </div>
                                     </div>`;
                         $('#cards-box').append(temp_html);
-                    }                    
+                    }
                 });
             });
         }

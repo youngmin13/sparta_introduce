@@ -15,19 +15,24 @@
     <title>{{ temp.name }}의 상세 페이지</title>
     <style>
 
+* {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
         body {
             background-color: #FFFFF3;
         }
 
         .mytitle {
-            width: 100%;
+            width: 70%;
             height: 120px;
-            color: #1F4E5F;
+            color: #566270;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-bottom: 2px solid #1F4E5F;
+            border-bottom: 1px solid #566270;
+            margin: auto;
         }
 
         .myintro {
@@ -35,51 +40,73 @@
             padding: 30px;
             width: 1500px;
             margin: 100px auto 0 auto;
-            border: 1px solid #A593E0;
-            border-radius: 30px;
+            border: 1px solid #566270;
+            border-radius: 20px;
         }
 
         .card-header {
             font-size: 30px;
+            margin: auto;
         }
 
         .card-text {
             padding: 10px;
-        }
-
-        .updateBtn {
-            margin-left: 440px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .input-group-text {
             justify-content: center;
             width: 150px;
-        }
-        
-        .myimg {
-            margin-right: 20px;
-        }
-
-        .updateBtn {
             color: #A593E0;
             background-color: #fff;
             border: 0.5px solid #A593E0;
+            font-weight: bold;
+            margin: auto;
+
+        }
+
+        .myimg {
+            margin-right: 20px;
+            border-radius: 10px;
+        }
+
+        .mybtn {
+            border-radius: 10px;
+            width: 100px;
+        }
+
+        .updateBtn {
+            color: #fff;
+            background-color: #A593E0;
+            border: 0.5px solid #A593E0;
+            margin-left: 330px;
+            transition:
+                color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
 
         .updateBtn:hover {
-            color: #fff;
-            background-color: #A593E0;
+            color: #A593E0;
+            background-color: #fff;
+            font-weight: bold;
+            border: 2px solid #A593E0;
         }
 
         .deleteBtn {
             color: #A593E0;
             background-color: #fff;
             border: 0.5px solid #A593E0;
+            transition:
+                color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
 
         .deleteBtn:hover {
             color: #fff;
             background-color: #A593E0;
+            font-weight: bold;
+            border: 2px solid #A593E0;
         }
 
     </style>
